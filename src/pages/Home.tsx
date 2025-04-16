@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { FaHeart } from 'react-icons/fa'; // FontAwesome Heart icon
+import { FaHeart } from 'react-icons/fa';
 
 const Home: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [searchTerm, setSearchTerm] = useState<string>('');
-  const [likedProducts, setLikedProducts] = useState<number[]>([]); // Array to track liked products
+  const [likedProducts, setLikedProducts] = useState<number[]>([]);
 
   const products = [
     { id: 1, name: 'Indoor Plant 1', price: 19.99, image: './img1.png', category: 'indoor' },
@@ -18,12 +18,13 @@ const Home: React.FC = () => {
     { id: 8, name: 'Outdoor Plant 4', price: 28.99, image: './img8.png', category: 'outdoor' }
   ];
 
-  const filteredProducts = products.filter(product => {
-    return (selectedCategory === 'all' || product.category === selectedCategory) && product.name.toLowerCase().includes(searchTerm.toLowerCase());
-  });
+  const filteredProducts = products.filter(product =>
+    (selectedCategory === 'all' || product.category === selectedCategory) &&
+    product.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   const handleLike = (id: number) => {
-    setLikedProducts(prev => 
+    setLikedProducts(prev =>
       prev.includes(id) ? prev.filter(productId => productId !== id) : [...prev, id]
     );
   };
@@ -41,7 +42,7 @@ const Home: React.FC = () => {
           </p>
           <Link
             to="/shop"
-            className="bg-green-600 text-white px-6 py-3 rounded hover:bg-green-700 transition"
+            className="inline-block bg-green-600 text-white px-6 py-3 rounded hover:bg-green-700 transition-all"
           >
             Shop Now
           </Link>
@@ -54,18 +55,18 @@ const Home: React.FC = () => {
       </section>
 
       {/* Filter Section */}
-      <section className="mb-10">
+      <section className="mb-12">
         <h2 className="text-2xl font-bold mb-4">Filter Products</h2>
-        <div className="flex items-center gap-6 mb-6">
+        <div className="flex flex-wrap items-center gap-4">
           <input
             type="text"
             placeholder="Search products..."
-            className="p-2 border rounded-md"
+            className="p-2 border rounded-md w-full sm:w-auto"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
           <select
-            className="p-2 border rounded-md"
+            className="p-2 border rounded-md w-full sm:w-auto"
             value={selectedCategory}
             onChange={(e) => setSelectedCategory(e.target.value)}
           >
@@ -76,39 +77,44 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* New Arrivals */}
-      <section className="mb-16">
+      {/* Products Section */}
+      <section>
         <h2 className="text-2xl font-bold mb-6">New Arrivals</h2>
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
-          {filteredProducts.map((item) => (
-            <div
-              key={item.id}
-              className="border rounded-xl p-4 hover:shadow-lg transition relative"
-            >
-              {/* Like Icon */}
-              <div 
-                className={`absolute top-2 right-2 cursor-pointer ${likedProducts.includes(item.id) ? 'text-red-600' : 'text-gray-400'}`}
-                onClick={() => handleLike(item.id)}
+        {filteredProducts.length === 0 ? (
+          <p className="text-gray-500">No products found.</p>
+        ) : (
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
+            {filteredProducts.map((item) => (
+              <div
+                key={item.id}
+                className="border rounded-xl p-4 hover:shadow-lg transition relative bg-white"
               >
-                <FaHeart size={24} />
-              </div>
-              
-              <img
-                src={item.image}
-                alt={item.name}
-                className="w-full h-40 object-cover rounded mb-3"
-              />
-              <h3 className="text-lg font-semibold">{item.name}</h3>
-              <p className="text-green-600 font-bold mt-1">${item.price.toFixed(2)}</p>
-              <button className="mt-3 w-full bg-green-600 text-white py-1 rounded hover:bg-green-700">
-                Buy
-              </button>
-            </div>
-          ))}
-        </div>
-      </section>
+                {/* Like Icon */}
+                <div
+                  className={`absolute top-2 right-2 cursor-pointer transition-transform duration-300 ${
+                    likedProducts.includes(item.id) ? 'text-red-600 scale-110' : 'text-gray-400'
+                  }`}
+                  onClick={() => handleLike(item.id)}
+                  title={likedProducts.includes(item.id) ? 'Unlike' : 'Like'}
+                >
+                  <FaHeart size={22} />
+                </div>
 
-      {/* Other sections like Customers and Discounts */}
+                <img
+                  src={item.image}
+                  alt={item.name}
+                  className="w-full h-40 object-cover rounded mb-3"
+                />
+                <h3 className="text-lg font-semibold">{item.name}</h3>
+                <p className="text-green-600 font-bold mt-1">${item.price.toFixed(2)}</p>
+                <button className="mt-3 w-full bg-green-600 text-white py-2 rounded hover:bg-green-700 transition">
+                  Buy
+                </button>
+              </div>
+            ))}
+          </div>
+        )}
+      </section>
     </main>
   );
 };

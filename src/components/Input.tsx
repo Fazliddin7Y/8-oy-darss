@@ -6,9 +6,9 @@ interface InputProps {
   name: string;
   value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  placeholder?: string;  // Optional placeholder
-  className?: string;    // Additional custom classes
-  required?: boolean;    // Optional required field
+  placeholder?: string;
+  className?: string;
+  required?: boolean;
 }
 
 const Input: React.FC<InputProps> = ({ 

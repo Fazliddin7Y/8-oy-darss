@@ -43,7 +43,7 @@ const ProductCard: React.FC<Props> = ({ product, onLikeToggle, likedProducts }) 
           onClick={() => onLikeToggle(product.name)}
           className={`px-4 py-2 rounded-md text-sm font-medium ${isLiked ? 'bg-red-100 text-red-500' : 'bg-gray-100 text-gray-700'} hover:bg-red-200`}
         >
-          {isLiked ? '❤️ Liked' : '🤍 Like'}
+          {isLiked ? 'Liked' : 'Like'}
         </button>
 
         <button

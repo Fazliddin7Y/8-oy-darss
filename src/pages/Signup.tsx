@@ -12,9 +12,8 @@ const Signup: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // You can add validation here before proceeding
-    localStorage.setItem('user', JSON.stringify(form)); // Storing user data (you might want to hash the password in a real app)
-    navigate('/login'); // Redirect to login page after signup
+    localStorage.setItem('user', JSON.stringify(form));
+    navigate('/login');
   };
 
   return (
