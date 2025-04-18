@@ -6,7 +6,11 @@ const ProductList = () => {
   const navigate = useNavigate();
 
   const handleShop = () => {
-    navigate('/shop'); // Let’s Shop tugmasi bosilganda shop sahifasiga o'tadi
+    navigate('/'); // Let's Shop tugmasi bosilganda Home sahifasiga o'tadi
+  };
+
+  const handleCheckout = () => {
+    navigate('/product-checkout'); // Proceed to Checkout tugmasi bosilganda product-checkout sahifasiga o'tadi
   };
 
   return (
@@ -76,10 +80,15 @@ const ProductList = () => {
             </div>
           </div>
 
-          <button className="w-full mt-6 bg-green-600 hover:bg-green-700 text-white py-2 rounded">
+          {/* Proceed to Checkout Button */}
+          <button
+            onClick={handleCheckout}
+            className="w-full mt-6 bg-green-600 hover:bg-green-700 text-white py-2 rounded"
+          >
             Proceed to Checkout
           </button>
 
+          {/* Continue Shopping Button */}
           <button
             onClick={handleShop}
             className="w-full mt-2 text-green-600 hover:underline text-sm"
